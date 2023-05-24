@@ -1,45 +1,33 @@
-import fs from 'fs';
-import { v4 as uuidV4 } from 'uuid';
+import fs from "fs";
+import { v4 as uuidV4 } from "uuid";
 
-const path = 'src/classes/files/products.json';
+const path = "src/classes/files/carts.json";
 
-export default class ProductManager {
-  findProduct = async (limit) => {
-    if (fs.existsSync(path)) {
-      const data = await fs.promises.readFile(path, 'utf-8');
-      const products = JSON.parse(data);
-
-      if (limit) {
-        return products.slice(0, limit);
+export default class CartManager {
+    consultarCarts = async () => {
+      console.log("existe", fs.existsSync(path));
+      if (fs.existsSync(path)) {
+        const data = await fs.promises.readFile(path, "utf-8");
+        const carts = JSON.parse(data);
+        return carts;
+      } else {
+        return [];
       }
-
-      return products;
-    } else {
-      return [];
-    }
-  };
-
-  createProduct = async (info) => {
-    const products = await this.findProduct();
-    info.id = uuidV4();
-    products.push(info);
-    await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
-    return info;
-  };
-
-  deleteProduct = async (id) => {
-    const products = await this.findProduct();
-    const filteredProducts = products.filter((product) => {
-      return product.id != id;
-    });
-    await fs.promises.writeFile(path, JSON.stringify(filteredProducts,null,'\t'));
-  };
-
-  findProductById = async (id) => {
-    const products = await this.findProduct();
-    const searchProduct = products.find((product) => {
-      return product.id == id;
-    });
-    return searchProduct ? searchProduct : 'Product not found';
-  };
-}
+    };
+  
+    createCart = async () => {
+      const carts = await this.findCart();
+      carts.push({ id: uuidV4(), products: [] });
+      return await fs.promises.writeFile(path, JSON.stringify(carts, null, "\t"));
+    };
+  
+    findCartById = async (id) => {
+      const carts = await this.findCart();
+  
+      const cart = carts.find((cart) => {
+        return cart.id == id;
+      });
+  
+      return cart ? cart : "Product Not Found";
+    };
+  }
