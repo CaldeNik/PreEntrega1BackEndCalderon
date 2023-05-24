@@ -21,9 +21,10 @@ export default class ProductManager {
 
   createProduct = async (info) => {
     const products = await this.findProduct();
-    info.id = uuidv4();
+    info.id = uuidV4();
     products.push(info);
     await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
+    return info;
   };
 
   deleteProduct = async (id) => {
