@@ -1,1 +1,23 @@
-[]
+[
+	{
+		"id": "868fdaff-6ad6-43a3-8d1b-f1c233c750e9",
+		"products": [
+			{
+				"id": "4fcaddf9-d420-4921-b63e-8d6fce6e0671",
+				"quantity": 2
+			},
+			{
+				"id": "f9f1f371-614c-4af5-a7c4-be9600cdda47",
+				"quantity": 1
+			}
+		]
+	},
+	{
+		"id": "42a9301c-340a-4e0e-afcb-077d26386757",
+		"products": []
+	},
+	{
+		"id": "9209b0be-cb04-4b68-9301-fb1a605fff58",
+		"products": []
+	}
+]
