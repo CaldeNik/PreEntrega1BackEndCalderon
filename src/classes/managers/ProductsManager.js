@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { v4 as uuidV4 } from 'uuid';
 
 const path = 'src/classes/files/products.json';
 
@@ -20,14 +21,9 @@ export default class ProductManager {
 
   createProduct = async (info) => {
     const products = await this.findProduct();
-    if (products.length === 0) {
-      info.id = 1;
-    } else {
-      info.id = products[products.length - 1].id + 1;
-    }
-
+    info.id = uuidv4();
     products.push(info);
-    await fs.promises.writeFile(path, JSON.stringify(products,null,'\t'));
+    await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
   };
 
   deleteProduct = async (id) => {
