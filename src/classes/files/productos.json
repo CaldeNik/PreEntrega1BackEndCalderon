@@ -1,0 +1,153 @@
+[
+    {
+      "id": 1,
+      "title": "Producto 1",
+      "description": "Descripción del producto 1",
+      "code": "P001",
+      "price": 10.99,
+      "status": true,
+      "stock": 100,
+      "category": "Categoría 1",
+      "thumbnails": [
+        "ruta-imagen1-1.jpg",
+        "ruta-imagen1-2.jpg",
+        "ruta-imagen1-3.jpg"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Producto 2",
+      "description": "Descripción del producto 2",
+      "code": "P002",
+      "price": 19.99,
+      "status": true,
+      "stock": 50,
+      "category": "Categoría 2",
+      "thumbnails": [
+        "ruta-imagen2-1.jpg",
+        "ruta-imagen2-2.jpg",
+        "ruta-imagen2-3.jpg"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Producto 3",
+      "description": "Descripción del producto 3",
+      "code": "P003",
+      "price": 5.99,
+      "status": true,
+      "stock": 200,
+      "category": "Categoría 1",
+      "thumbnails": [
+        "ruta-imagen3-1.jpg",
+        "ruta-imagen3-2.jpg",
+        "ruta-imagen3-3.jpg"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Producto 4",
+      "description": "Descripción del producto 4",
+      "code": "P004",
+      "price": 14.99,
+      "status": true,
+      "stock": 80,
+      "category": "Categoría 2",
+      "thumbnails": [
+        "ruta-imagen4-1.jpg",
+        "ruta-imagen4-2.jpg",
+        "ruta-imagen4-3.jpg"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Producto 5",
+      "description": "Descripción del producto 5",
+      "code": "P005",
+      "price": 9.99,
+      "status": true,
+      "stock": 150,
+      "category": "Categoría 1",
+      "thumbnails": [
+        "ruta-imagen5-1.jpg",
+        "ruta-imagen5-2.jpg",
+        "ruta-imagen5-3.jpg"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Producto 6",
+      "description": "Descripción del producto 6",
+      "code": "P006",
+      "price": 12.99,
+      "status": true,
+      "stock": 70,
+      "category": "Categoría 2",
+      "thumbnails": [
+        "ruta-imagen6-1.jpg",
+        "ruta-imagen6-2.jpg",
+        "ruta-imagen6-3.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Producto 7",
+      "description": "Descripción del producto 7",
+      "code": "P007",
+      "price": 7.99,
+      "status": true,
+      "stock": 120,
+      "category": "Categoría 1",
+      "thumbnails": [
+        "ruta-imagen7-1.jpg",
+        "ruta-imagen7-2.jpg",
+        "ruta-imagen7-3.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Producto 8",
+      "description": "Descripción del producto 8",
+      "code": "P008",
+      "price": 17.99,
+      "status": true,
+      "stock": 90,
+      "category": "Categoría 2",
+      "thumbnails": [
+        "ruta-imagen8-1.jpg",
+        "ruta-imagen8-2.jpg",
+        "ruta-imagen8-3.jpg"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Producto 9",
+      "description": "Descripción del producto 9",
+      "code": "P009",
+      "price": 11.99,
+      "status": true,
+      "stock": 180,
+      "category": "Categoría 1",
+      "thumbnails": [
+        "ruta-imagen9-1.jpg",
+        "ruta-imagen9-2.jpg",
+        "ruta-imagen9-3.jpg"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Producto 10",
+      "description": "Descripción del producto 10",
+      "code": "P010",
+      "price": 15.99,
+      "status": true,
+      "stock": 60,
+      "category": "Categoría 2",
+      "thumbnails": [
+        "ruta-imagen10-1.jpg",
+        "ruta-imagen10-2.jpg",
+        "ruta-imagen10-3.jpg"
+      ]
+    }
+  ]
+  
