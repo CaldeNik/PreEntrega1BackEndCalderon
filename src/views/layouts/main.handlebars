@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My App</title>
+</head>
+<body>
+  {{{body}}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    // Función para enviar un nuevo producto
+    function createProduct() {
+      const productName = document.getElementById('productName').value;
+      const productPrice = document.getElementById('productPrice').value;
+
+      const product = {
+        name: productName,
+        price: productPrice
+      };
+
+      socket.emit('createProduct', product);
+    }
+
+    // Función para eliminar un producto
+    function deleteProduct(productId) {
+      socket.emit('deleteProduct', productId);
+    }
+
+    // Escuchar actualizaciones de productos
+    socket.on('updateProducts', (products) => {
+      // Actualizar la lista de productos en la vista
+      const productList = document.getElementById('productList');
+      productList.innerHTML = '';
+
+      products.forEach((product) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `${product.name} - $${product.price}`;
+        productList.appendChild(listItem);
+      });
+    });
+  </script>
+</body>
+</html>
