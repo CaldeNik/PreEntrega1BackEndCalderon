@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from 'uuid';
 const path = 'src/classes/files/products.json';
 
 export default class ProductManager {
-  findProduct = async (limit) => {
+  async findProduct(limit) {
     if (fs.existsSync(path)) {
       const data = await fs.promises.readFile(path, 'utf-8');
       const products = JSON.parse(data);
@@ -17,29 +17,29 @@ export default class ProductManager {
     } else {
       return [];
     }
-  };
+  }
 
-  createProduct = async (info) => {
+  async createProduct(info) {
     const products = await this.findProduct();
     info.id = uuidV4();
     products.push(info);
     await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
     return info;
-  };
+  }
 
-  deleteProduct = async (id) => {
+  async deleteProduct(id) {
     const products = await this.findProduct();
     const filteredProducts = products.filter((product) => {
       return product.id != id;
     });
-    await fs.promises.writeFile(path, JSON.stringify(filteredProducts,null,'\t'));
-  };
+    await fs.promises.writeFile(path, JSON.stringify(filteredProducts, null, '\t'));
+  }
 
-  findProductById = async (id) => {
+  async findProductById(id) {
     const products = await this.findProduct();
     const searchProduct = products.find((product) => {
       return product.id == id;
     });
     return searchProduct ? searchProduct : 'Product not found';
-  };
+  }
 }

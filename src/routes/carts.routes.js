@@ -21,11 +21,11 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/:cid/products/:pid", async (req, res) => {
-  const cartId = req.params.cid
-  const productId = req.params.pid
+  const cartId = req.params.cid;
+  const productId = req.params.pid;
 
-  await cartManager.addProductToCart(cartId, productId)
-  res.send({status: "succes"})
-})
+  await cartManager.addProductToCart(cartId, productId);
+  res.send({ status: "success" });
+});
 
 export default router;

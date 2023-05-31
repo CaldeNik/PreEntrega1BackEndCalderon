@@ -4,7 +4,7 @@ import { v4 as uuidV4 } from "uuid";
 const path = "src/classes/files/carts.json";
 
 export default class CartManager {
-  findCart = async () => {
+  async findCart() {
     console.log("existe", fs.existsSync(path));
     if (fs.existsSync(path)) {
       const data = await fs.promises.readFile(path, "utf-8");
@@ -13,16 +13,16 @@ export default class CartManager {
     } else {
       return [];
     }
-  };
+  }
 
-  createCart = async () => {
+  async createCart() {
     const carts = await this.findCart();
     carts.push({ id: uuidV4(), products: [] });
     await fs.promises.writeFile(path, JSON.stringify(carts, null, "\t"));
     return carts;
-  };
+  }
 
-  findCartById = async (id) => {
+  async findCartById(id) {
     const carts = await this.findCart();
 
     const cart = carts.find((cart) => {
@@ -30,9 +30,9 @@ export default class CartManager {
     });
 
     return cart ? cart : "Cart Not Found";
-  };
+  }
 
-  addProductToCart = async (idCart, idProduct) => {
+  async addProductToCart(idCart, idProduct) {
     const cart = await this.findCartById(idCart);
 
     const index = cart.products.findIndex((product) => {
@@ -54,5 +54,5 @@ export default class CartManager {
 
     await fs.promises.writeFile(path, JSON.stringify(carts, null, "\t"));
     return carts;
-  };
+  }
 }
