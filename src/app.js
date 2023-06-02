@@ -38,6 +38,27 @@ app.get('/realtimeproducts', async (req, res) => {
   res.render('realTimeProducts', { products });
 });
 
+app.put('/api/products/:id', async (req, res) => {
+  const id = req.params.id;
+  const productData = req.body;
+  const updatedProduct = await productManager.updateProduct(id, productData);
+  if (updatedProduct) {
+    const products = await productManager.findProduct();
+    io.emit('updateProducts', products);
+    res.send({ product: updatedProduct });
+  } else {
+    res.status(404).send({ error: "Producto no encontrado" });
+  }
+});
+
+app.delete('/api/products/:id', async (req, res) => {
+  const id = req.params.id;
+  await productManager.deleteProduct(id);
+  const products = await productManager.findProduct();
+  io.emit('updateProducts', products);
+  res.send({ status: 'success' });
+});
+
 io.on('connection', (socket) => {
   console.log('Nuevo cliente conectado');
 

@@ -42,4 +42,17 @@ export default class ProductManager {
     });
     return searchProduct ? searchProduct : 'Product not found';
   }
+
+  async updateProduct(id, updatedData) {
+    const products = await this.findProduct();
+    const index = products.findIndex((product) => product.id === id);
+
+    if (index !== -1) {
+      products[index] = { ...products[index], ...updatedData };
+      await fs.promises.writeFile(path, JSON.stringify(products, null, '\t'));
+      return products[index];
+    } else {
+      return null;
+    }
+  }
 }
