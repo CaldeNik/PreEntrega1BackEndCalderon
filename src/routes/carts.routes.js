@@ -1,5 +1,5 @@
 import { Router } from "express";
-import CartManager from "../classes/CartManager.class.js";
+import CartManager from "../daos/mongodb/CartManager.class.js";
 
 const router = Router();
 const cartManager = new CartManager();
@@ -11,7 +11,7 @@ router.get("/:id", async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const carts = await cartManager.findCart();
+  const carts = await cartManager.findCarts();
   res.send(carts);
 });
 

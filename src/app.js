@@ -6,7 +6,7 @@ import productsRouter from './routes/products.routes.js';
 import cartsRouter from './routes/carts.routes.js';
 import { __dirname } from './utils.js';
 import path from 'path';
-import ProductManager from './classes/ProductsManager.class.js';
+import ProductManager from './daos/mongodb/ProductsManager.class.js';
 
 const app = express();
 const server = http.createServer(app);
@@ -24,6 +24,26 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(__dirname + '/public'));
+
+io.on('connection', (socket) => {
+  console.log('Nuevo cliente conectado');
+
+  socket.on('createProduct', async (product) => {
+    await productManager.createProduct(product);
+    const products = await productManager.findProduct();
+    io.emit('updateProducts', products);
+  });
+
+  socket.on('deleteProduct', async (productId) => {
+    await productManager.deleteProduct(productId);
+    const products = await productManager.findProduct();
+    io.emit('updateProducts', products);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Cliente desconectado');
+  });
+});
 
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
@@ -57,26 +77,6 @@ app.delete('/api/products/:id', async (req, res) => {
   const products = await productManager.findProduct();
   io.emit('updateProducts', products);
   res.send({ status: 'success' });
-});
-
-io.on('connection', (socket) => {
-  console.log('Nuevo cliente conectado');
-
-  socket.on('createProduct', async (product) => {
-    await productManager.createProduct(product);
-    const products = await productManager.findProduct();
-    io.emit('updateProducts', products);
-  });
-
-  socket.on('deleteProduct', async (productId) => {
-    await productManager.deleteProduct(productId);
-    const products = await productManager.findProduct();
-    io.emit('updateProducts', products);
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Cliente desconectado');
-  });
 });
 
 server.listen(PORT, () => {

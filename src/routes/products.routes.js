@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ProductManager from '../classes/ProductsManager.class.js';
+import ProductManager from '../daos/mongodb/ProductsManager.class.js';
 
 const router = Router();
 
@@ -39,11 +39,11 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
-  const deletedProduct = await productManager.deleteProduct(id);
+  const deletedProduct = await productManager.deleteProductById(id);
   if (deletedProduct !== null) {
     res.send({ message: "Producto eliminado correctamente" });
   } else {
-    res.send({ message: "Producto no encontrado" });
+    res.status(404).send({ error: "Producto no encontrado" });
   }
 });
 
