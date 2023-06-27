@@ -28,4 +28,14 @@ router.post("/:cid/products/:pid", async (req, res) => {
   res.send({ status: "success" });
 });
 
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedCart = await cartManager.deleteCart(id);
+  if (deletedCart.deletedCount > 0) {
+    res.send({ message: "Carrito eliminado correctamente" });
+  } else {
+    res.status(404).send({ error: "Carrito no encontrado" });
+  }
+});
+
 export default router;

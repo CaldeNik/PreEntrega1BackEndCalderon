@@ -26,8 +26,20 @@ export default class CartManager {
   async addProductToCart(idCart, idProduct) {
     const product = await this.productManager.findProductById(idProduct);
     const cart = await this.findCartById(idCart);
-    cart.products.push({ product: product });
+  
+    const existingProduct = cart.products.find(p => p.product.toString() === product._id.toString());
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.products.push({ product: product, quantity: 1 });
+    }
+  
     await cart.save();
     return;
+  }
+  
+  async deleteCart(id) {
+    const result = await cartModel.deleteOne({ _id: id });
+    return result;
   }
 }
