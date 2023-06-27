@@ -20,14 +20,65 @@ export default class ProductManager {
     return result;
   }
 
-  async findProduct(limit = null) {
-    let result = await ProductsModel.find();
-    return result;
+  async getProducts(limit = 10, page = 1, sort = null, query = null) {
+    try {
+      const options = {
+        limit: parseInt(limit),
+        page: parseInt(page),
+        sort: sort === "asc" ? { price: 1 } : sort === "desc" ? { price: -1 } : null,
+        populate: {
+          path: "products",
+          select: "-_id -__v" // Excluir _id y __v de los productos
+        }
+      };
+
+      const filter = query ? { category: query } : {};
+
+      const result = await ProductsModel.paginate(filter, options);
+
+      const totalPages = result.totalPages;
+      const prevPage = result.hasPrevPage ? page - 1 : null;
+      const nextPage = result.hasNextPage ? page + 1 : null;
+      const hasPrevPage = result.hasPrevPage;
+      const hasNextPage = result.hasNextPage;
+      const prevLink = result.hasPrevPage ? `/products?limit=${limit}&page=${prevPage}&sort=${sort}&query=${query}` : null;
+      const nextLink = result.hasNextPage ? `/products?limit=${limit}&page=${nextPage}&sort=${sort}&query=${query}` : null;
+
+      return {
+        status: "success",
+        payload: result.docs,
+        totalPages,
+        prevPage,
+        nextPage,
+        page,
+        hasPrevPage,
+        hasNextPage,
+        prevLink,
+        nextLink
+      };
+    } catch (error) {
+      console.error("Error al obtener los productos:", error);
+      return {
+        status: "error",
+        payload: null
+      };
+    }
   }
 
   async findProductById(id) {
-    let result = await ProductsModel.findOne({ _id: id });
-    return result;
+    try {
+      const result = await ProductsModel.findById(id);
+      return {
+        status: "success",
+        payload: result
+      };
+    } catch (error) {
+      console.error("Error al buscar el producto por ID:", error);
+      return {
+        status: "error",
+        payload: null
+      };
+    }
   }
 
   async updateProduct(id, updatedProduct) {

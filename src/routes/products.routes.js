@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import ProductManager from '../daos/mongodb/ProductsManager.class.js';
+import CartManager from '../daos/mongodb/CartManager.class.js';
 
 const router = Router();
-
 const productManager = new ProductManager();
+const cartManager = new CartManager();
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   const product = await productManager.findProductById(id);
   if (product) {
-    res.send({ product });
+    res.render("product-details", { product });
   } else {
     res.status(404).send({ error: "Producto no encontrado" });
   }
@@ -17,7 +18,7 @@ router.get("/:id", async (req, res) => {
 
 router.get("/", async (req, res) => {
   const products = await productManager.findProduct();
-  res.send({ products });
+  res.render("products", { products });
 });
 
 router.post("/", async (req, res) => {
@@ -45,6 +46,13 @@ router.delete("/:id", async (req, res) => {
   } else {
     res.status(404).send({ error: "Producto no encontrado" });
   }
+});
+
+router.post("/:id/add-to-cart", async (req, res) => {
+  const productId = req.params.id;
+  const cart = await cartManager.createCart();
+  await cartManager.addProductToCart(cart._id, productId);
+  res.redirect("/carts/" + cart._id);
 });
 
 export default router;
